@@ -24,19 +24,19 @@
     "relationships": [],
     "configuration": {
       "certificateArn": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
-      "domainName": "test.gov.au",
+      "domainName": "www.test.com",
       "subjectAlternativeNames": [
-      "test.gov.au"
+      "www.test.com"
       ],
       "domainValidationOptions": [
       {
-        "domainName": "test.gov.au",
-        "validationDomain": "test.gov.au",
+        "domainName": "www.test.com",
+        "validationDomain": "www.test.com",
         "validationStatus": "FAILED",
         "validationMethod": "DNS"
       }
       ],
-      "subject": "CN=test.gov.au",
+      "subject": "CN=www.test.com",
       "issuer": "Amazon",
       "createdAt": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
       "status": "FAILED",
@@ -81,20 +81,19 @@
     "relationships": [],
     "configuration": {
       "certificateArn": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
-      "domainName": "test.gov.au",
+      "domainName": "www.test.com",
       "subjectAlternativeNames": [
-      "test.gov.au",
       "www.test.com"
       ],
       "domainValidationOptions": [
       {
-        "domainName": "test.gov.au",
-        "validationDomain": "test.gov.au",
+        "domainName": "www.test.com",
+        "validationDomain": "www.test.com",
         "validationStatus": "FAILED",
         "validationMethod": "DNS"
       }
       ],
-      "subject": "CN=test.gov.au",
+      "subject": "CN=www.test.com",
       "issuer": "Amazon",
       "createdAt": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
       "status": "FAILED",
