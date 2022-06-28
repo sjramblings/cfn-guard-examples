@@ -1,0 +1,461 @@
+---
+- name: NoMatchedResource  
+  input: {}
+  expectations:
+    rules:
+      check_resource_type_and_status: FAIL
+
+- name: DesyncProtectionEnabled
+  input: {
+    "version": "1.3",
+    "accountId": "264683526309",
+    "configurationItemCaptureTime": "2021-10-27T11:03:34.250Z",
+    "configurationItemStatus": "OK",
+    "configurationStateId": "1635332614250",
+    "configurationItemMD5Hash": "",
+    "arn": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+    "resourceType": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    "resourceId": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+    "resourceName": "prodv2-External-App",
+    "awsRegion": "ap-southeast-2",
+    "availabilityZone": "Multiple Availability Zones",
+    "resourceCreationTime": "2021-05-19T06:39:26.060Z",
+    "tags": {
+      "Environment": "prodv2",
+      "Name": "prodv2-External-App"
+    },
+    "relatedEvents": [],
+    "relationships": [
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0734bdb2396f09dfa",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0844af72802dd5d00",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::VPC",
+        "resourceId": "vpc-0e90e8a7c557d16d5",
+        "relationshipName": "Is contained in Vpc"
+      },
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0ee8de6125b18337d",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::SecurityGroup",
+        "resourceId": "sg-0382d241aab1340da",
+        "relationshipName": "Is associated with SecurityGroup"
+      }
+    ],
+    "configuration": {
+      "loadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+      "dNSName": "prodv2-External-App-145159737.ap-southeast-2.elb.amazonaws.com",
+      "canonicalHostedZoneId": "Z1GM3OXH4ZPM65",
+      "createdTime": "2021-05-19T06:39:26.060Z",
+      "loadBalancerName": "prodv2-External-App",
+      "scheme": "internet-facing",
+      "vpcId": "vpc-0e90e8a7c557d16d5",
+      "state": {
+        "code": "active"
+      },
+      "type": "application",
+      "availabilityZones": [
+        {
+          "zoneName": "ap-southeast-2b",
+          "subnetId": "subnet-0734bdb2396f09dfa",
+          "loadBalancerAddresses": []
+        },
+        {
+          "zoneName": "ap-southeast-2a",
+          "subnetId": "subnet-0844af72802dd5d00",
+          "loadBalancerAddresses": []
+        },
+        {
+          "zoneName": "ap-southeast-2c",
+          "subnetId": "subnet-0ee8de6125b18337d",
+          "loadBalancerAddresses": []
+        }
+      ],
+      "securityGroups": [
+        "sg-0382d241aab1340da"
+      ],
+      "ipAddressType": "ipv4"
+    },
+    "supplementaryConfiguration": {
+      "LoadBalancerAttributes": [
+        {
+          "key": "access_logs.s3.enabled",
+          "value": "true"
+        },
+        {
+          "key": "access_logs.s3.bucket",
+          "value": "nswh-provider-ap-southeast-2-inf-264683526309"
+        },
+        {
+          "key": "access_logs.s3.prefix",
+          "value": ""
+        },
+        {
+          "key": "idle_timeout.timeout_seconds",
+          "value": "400"
+        },
+        {
+          "key": "deletion_protection.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http2.enabled",
+          "value": "true"
+        },
+        {
+          "key": "routing.http.drop_invalid_header_fields.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.xff_client_port.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.desync_mitigation_mode",
+          "value": "defensive"
+        },
+        {
+          "key": "waf.fail_open.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.x_amzn_tls_version_and_cipher_suite.enabled",
+          "value": "false"
+        },
+        {
+          "key": "waf.enabled",
+          "value": "true"
+        },
+        {
+          "key": "waf.web_acl_id",
+          "value": "arn:aws:wafv2:ap-southeast-2:264683526309:regional/webacl/prodv2-WAF/f5169227-44bf-4333-9031-3a7697c22a1a"
+        }
+      ],
+      "Tags": [
+        {
+          "key": "Environment",
+          "value": "prodv2"
+        },
+        {
+          "key": "Name",
+          "value": "prodv2-External-App"
+        }
+      ]
+    },
+    "resourceTransitionStatus": "None"
+  }
+  expectations:
+    rules:
+      check_resource_type_and_status: PASS
+      check_desync_mitigation_mode: PASS
+
+- name: DesyncProtectionEnabled
+  input: {
+    "version": "1.3",
+    "accountId": "264683526309",
+    "configurationItemCaptureTime": "2021-10-27T11:03:34.250Z",
+    "configurationItemStatus": "OK",
+    "configurationStateId": "1635332614250",
+    "configurationItemMD5Hash": "",
+    "arn": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+    "resourceType": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    "resourceId": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+    "resourceName": "prodv2-External-App",
+    "awsRegion": "ap-southeast-2",
+    "availabilityZone": "Multiple Availability Zones",
+    "resourceCreationTime": "2021-05-19T06:39:26.060Z",
+    "tags": {
+      "Environment": "prodv2",
+      "Name": "prodv2-External-App"
+    },
+    "relatedEvents": [],
+    "relationships": [
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0734bdb2396f09dfa",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0844af72802dd5d00",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::VPC",
+        "resourceId": "vpc-0e90e8a7c557d16d5",
+        "relationshipName": "Is contained in Vpc"
+      },
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0ee8de6125b18337d",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::SecurityGroup",
+        "resourceId": "sg-0382d241aab1340da",
+        "relationshipName": "Is associated with SecurityGroup"
+      }
+    ],
+    "configuration": {
+      "loadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+      "dNSName": "prodv2-External-App-145159737.ap-southeast-2.elb.amazonaws.com",
+      "canonicalHostedZoneId": "Z1GM3OXH4ZPM65",
+      "createdTime": "2021-05-19T06:39:26.060Z",
+      "loadBalancerName": "prodv2-External-App",
+      "scheme": "internet-facing",
+      "vpcId": "vpc-0e90e8a7c557d16d5",
+      "state": {
+        "code": "active"
+      },
+      "type": "application",
+      "availabilityZones": [
+        {
+          "zoneName": "ap-southeast-2b",
+          "subnetId": "subnet-0734bdb2396f09dfa",
+          "loadBalancerAddresses": []
+        },
+        {
+          "zoneName": "ap-southeast-2a",
+          "subnetId": "subnet-0844af72802dd5d00",
+          "loadBalancerAddresses": []
+        },
+        {
+          "zoneName": "ap-southeast-2c",
+          "subnetId": "subnet-0ee8de6125b18337d",
+          "loadBalancerAddresses": []
+        }
+      ],
+      "securityGroups": [
+        "sg-0382d241aab1340da"
+      ],
+      "ipAddressType": "ipv4"
+    },
+    "supplementaryConfiguration": {
+      "LoadBalancerAttributes": [
+        {
+          "key": "access_logs.s3.enabled",
+          "value": "true"
+        },
+        {
+          "key": "access_logs.s3.bucket",
+          "value": "nswh-provider-ap-southeast-2-inf-264683526309"
+        },
+        {
+          "key": "access_logs.s3.prefix",
+          "value": ""
+        },
+        {
+          "key": "idle_timeout.timeout_seconds",
+          "value": "400"
+        },
+        {
+          "key": "deletion_protection.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http2.enabled",
+          "value": "true"
+        },
+        {
+          "key": "routing.http.drop_invalid_header_fields.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.xff_client_port.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.desync_mitigation_mode",
+          "value": "defensive"
+        },
+        {
+          "key": "waf.fail_open.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.x_amzn_tls_version_and_cipher_suite.enabled",
+          "value": "false"
+        },
+        {
+          "key": "waf.enabled",
+          "value": "true"
+        },
+        {
+          "key": "waf.web_acl_id",
+          "value": "arn:aws:wafv2:ap-southeast-2:264683526309:regional/webacl/prodv2/f5169227-44bf-4333-9031-3a7697c22a1a"
+        }
+      ],
+      "Tags": [
+        {
+          "key": "Environment",
+          "value": "prodv2"
+        }
+      ]
+    },
+    "resourceTransitionStatus": "None"
+  }
+  expectations:
+    rules:
+      check_resource_type_and_status: PASS
+      check_desync_mitigation_mode: PASS
+
+- name: PublicLoadBalancer
+  input: {
+    "version": "1.3",
+    "accountId": "264683526309",
+    "configurationItemCaptureTime": "2021-10-27T11:03:34.250Z",
+    "configurationItemStatus": "OK",
+    "configurationStateId": "1635332614250",
+    "configurationItemMD5Hash": "",
+    "arn": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+    "resourceType": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    "resourceId": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+    "resourceName": "prodv2-External-App",
+    "awsRegion": "ap-southeast-2",
+    "availabilityZone": "Multiple Availability Zones",
+    "resourceCreationTime": "2021-05-19T06:39:26.060Z",
+    "tags": {
+      "Environment": "prodv2",
+      "Name": "prodv2-External-App"
+    },
+    "relatedEvents": [],
+    "relationships": [
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0734bdb2396f09dfa",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0844af72802dd5d00",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::VPC",
+        "resourceId": "vpc-0e90e8a7c557d16d5",
+        "relationshipName": "Is contained in Vpc"
+      },
+      {
+        "resourceType": "AWS::EC2::Subnet",
+        "resourceId": "subnet-0ee8de6125b18337d",
+        "relationshipName": "Is attached to Subnet"
+      },
+      {
+        "resourceType": "AWS::EC2::SecurityGroup",
+        "resourceId": "sg-0382d241aab1340da",
+        "relationshipName": "Is associated with SecurityGroup"
+      }
+    ],
+    "configuration": {
+      "loadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-2:264683526309:loadbalancer/app/prodv2-External-App/52a5004b2a54999a",
+      "dNSName": "prodv2-External-App-145159737.ap-southeast-2.elb.amazonaws.com",
+      "canonicalHostedZoneId": "Z1GM3OXH4ZPM65",
+      "createdTime": "2021-05-19T06:39:26.060Z",
+      "loadBalancerName": "prodv2-External-App",
+      "scheme": "internet-facing",
+      "vpcId": "vpc-0e90e8a7c557d16d5",
+      "state": {
+        "code": "active"
+      },
+      "type": "application",
+      "availabilityZones": [
+        {
+          "zoneName": "ap-southeast-2b",
+          "subnetId": "subnet-0734bdb2396f09dfa",
+          "loadBalancerAddresses": []
+        },
+        {
+          "zoneName": "ap-southeast-2a",
+          "subnetId": "subnet-0844af72802dd5d00",
+          "loadBalancerAddresses": []
+        },
+        {
+          "zoneName": "ap-southeast-2c",
+          "subnetId": "subnet-0ee8de6125b18337d",
+          "loadBalancerAddresses": []
+        }
+      ],
+      "securityGroups": [
+        "sg-0382d241aab1340da"
+      ],
+      "ipAddressType": "ipv4"
+    },
+    "supplementaryConfiguration": {
+      "LoadBalancerAttributes": [
+        {
+          "key": "access_logs.s3.enabled",
+          "value": "true"
+        },
+        {
+          "key": "access_logs.s3.bucket",
+          "value": "nswh-provider-ap-southeast-2-inf-264683526309"
+        },
+        {
+          "key": "access_logs.s3.prefix",
+          "value": ""
+        },
+        {
+          "key": "idle_timeout.timeout_seconds",
+          "value": "400"
+        },
+        {
+          "key": "deletion_protection.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http2.enabled",
+          "value": "true"
+        },
+        {
+          "key": "routing.http.drop_invalid_header_fields.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.xff_client_port.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.desync_mitigation_mode",
+          "value": "defensive"
+        },
+        {
+          "key": "waf.fail_open.enabled",
+          "value": "false"
+        },
+        {
+          "key": "routing.http.x_amzn_tls_version_and_cipher_suite.enabled",
+          "value": "false"
+        },
+        {
+          "key": "waf.enabled",
+          "value": "true"
+        },
+        {
+          "key": "waf.web_acl_id",
+          "value": "arn:aws:wafv2:ap-southeast-2:264683526309:regional/webacl/prodv2/f5169227-44bf-4333-9031-3a7697c22a1a"
+        }
+      ],
+      "Tags": [
+        {
+          "key": "Environment",
+          "value": "prodv2"
+        }
+      ]
+    },
+    "resourceTransitionStatus": "None"
+  }
+  expectations:
+    rules:
+      check_resource_type_and_status: PASS
+      check_desync_mitigation_mode: PASS
+      check_internet_facing: FAIL

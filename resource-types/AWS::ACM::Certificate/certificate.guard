@@ -1,0 +1,37 @@
+# Rule intent
+# a) Match AWS::ACM::Certificate resourceType
+#
+# Expectations:
+# 1) FAIL when there are no AWS::ACM::Certificate resources
+# 2) FAIL otherwise                                                                          
+#
+
+rule check_resource_type_and_status {
+    resourceType == /AWS::ACM::Certificate/
+}
+
+#
+# Rule intent
+# a) Certificate should have authorised domain name
+#
+# Expectations:
+# 1) SKIP when there are no AWS::ACM::Certificate resources
+# 2) PASS when the domain name is on allowed list     
+# 3) FAIL otherwise                                                                                   
+#
+
+rule check_approved_domain_name when check_resource_type_and_status {
+
+    # 
+    # select subjectAlternativeNames entries
+    #
+    let domain_names = configuration.subjectAlternativeNames[*]
+
+    when %domain_names !empty
+    {
+        %domain_names {
+            this  == /(?i).net/ or
+            this  == /(?i).gov.au/
+        }
+    }
+}

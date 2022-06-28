@@ -1,0 +1,52 @@
+# Rule intent
+# a) Match AWS::ElasticLoadBalancingV2::LoadBalancer resourceType
+#
+# Expectations:
+# 1) FAIL when there are no AWS::ElasticLoadBalancingV2::LoadBalancer resources
+# 2) FAIL otherwise                                                                          
+#
+
+rule check_resource_type_and_status {
+    resourceType == /AWS::ElasticLoadBalancingV2::LoadBalancer/
+}
+
+#
+# Rule intent
+# a) Certificate should have authorised domain name
+#
+# Expectations:
+# 1) SKIP when there are no AWS::ElasticLoadBalancingV2::LoadBalancer resources
+# 2) PASS when the domain name is on allowed list     
+# 3) FAIL otherwise                                                                                   
+#
+
+rule check_desync_mitigation_mode when check_resource_type_and_status {
+    let allowed_attributes = ['strictest', 'defensive']
+    # 
+    # select subjectAlternativeNames entries
+    #
+    let load_balancer_attributes = supplementaryConfiguration.LoadBalancerAttributes[
+        key == 'routing.http.desync_mitigation_mode'
+    ]
+
+    when %load_balancer_attributes !empty
+    {
+        %load_balancer_attributes {
+            value IN %allowed_attributes
+        }
+    }
+}
+
+#
+# Rule intent
+# a) Certificate should have authorised domain name
+#
+# Expectations:
+# 1) SKIP when there are no AWS::ElasticLoadBalancingV2::LoadBalancer resources
+# 2) PASS when the domain name is on allowed list     
+# 3) FAIL otherwise                                                                                   
+#
+
+rule check_internet_facing when check_resource_type_and_status {
+    configuration.scheme == 'internal'
+}

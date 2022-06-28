@@ -1,0 +1,121 @@
+---
+- name: NoMatchedResource  
+  input: {}
+  expectations:
+    rules:
+      check_resource_type_and_status: FAIL
+
+- name: ApprovedDomainName
+  input: {
+    "version": "1.3",
+    "accountId": "1236456789012",
+    "configurationItemCaptureTime": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
+    "configurationItemStatus": "OK",
+    "configurationStateId": "1587582797718",
+    "configurationItemMD5Hash": "",
+    "arn": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
+    "resourceType": "AWS::ACM::Certificate",
+    "resourceId": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
+    "awsRegion": "us-east-2",
+    "availabilityZone": "Regional",
+    "resourceCreationTime": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
+    "tags": {},
+    "relatedEvents": [],
+    "relationships": [],
+    "configuration": {
+      "certificateArn": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
+      "domainName": "test.gov.au",
+      "subjectAlternativeNames": [
+      "test.gov.au"
+      ],
+      "domainValidationOptions": [
+      {
+        "domainName": "test.gov.au",
+        "validationDomain": "test.gov.au",
+        "validationStatus": "FAILED",
+        "validationMethod": "DNS"
+      }
+      ],
+      "subject": "CN=test.gov.au",
+      "issuer": "Amazon",
+      "createdAt": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
+      "status": "FAILED",
+      "keyAlgorithm": "RSA-2048",
+      "signatureAlgorithm": "SHA256WITHRSA",
+      "inUseBy": [],
+      "failureReason": "INVALID_PUBLIC_DOMAIN",
+      "type": "AMAZON_ISSUED",
+      "keyUsages": [],
+      "extendedKeyUsages": [],
+      "renewalEligibility": "INELIGIBLE",
+      "options": {
+      "certificateTransparencyLoggingPreference": "ENABLED"
+      }
+    },
+    "supplementaryConfiguration": {
+      "Tags": []
+    },
+    "resourceTransitionStatus": "None"
+  }
+  expectations:
+    rules:
+      check_resource_type_and_status: PASS
+      check_approved_domain_name: PASS
+
+- name: UnApprovedDomainName
+  input: {
+    "version": "1.3",
+    "accountId": "1236456789012",
+    "configurationItemCaptureTime": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
+    "configurationItemStatus": "OK",
+    "configurationStateId": "1587582797718",
+    "configurationItemMD5Hash": "",
+    "arn": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
+    "resourceType": "AWS::ACM::Certificate",
+    "resourceId": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
+    "awsRegion": "us-east-2",
+    "availabilityZone": "Regional",
+    "resourceCreationTime": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
+    "tags": {},
+    "relatedEvents": [],
+    "relationships": [],
+    "configuration": {
+      "certificateArn": "arn:aws:acm:us-east-2:1236456789012:certificate/aaa111a1-1aaa-1aa1-1aaa-aaa1a11aa111",
+      "domainName": "test.gov.au",
+      "subjectAlternativeNames": [
+      "test.gov.au",
+      "www.test.com"
+      ],
+      "domainValidationOptions": [
+      {
+        "domainName": "test.gov.au",
+        "validationDomain": "test.gov.au",
+        "validationStatus": "FAILED",
+        "validationMethod": "DNS"
+      }
+      ],
+      "subject": "CN=test.gov.au",
+      "issuer": "Amazon",
+      "createdAt": "datetime.datetime(2020, 4, 22, 13, 13, 17, 718000, tzinfo=tzlocal())",
+      "status": "FAILED",
+      "keyAlgorithm": "RSA-2048",
+      "signatureAlgorithm": "SHA256WITHRSA",
+      "inUseBy": [],
+      "failureReason": "INVALID_PUBLIC_DOMAIN",
+      "type": "AMAZON_ISSUED",
+      "keyUsages": [],
+      "extendedKeyUsages": [],
+      "renewalEligibility": "INELIGIBLE",
+      "options": {
+      "certificateTransparencyLoggingPreference": "ENABLED"
+      }
+    },
+    "supplementaryConfiguration": {
+      "Tags": []
+    },
+    "resourceTransitionStatus": "None"
+  }
+  expectations:
+    rules:
+      check_resource_type_and_status: PASS
+      check_approved_domain_name: FAIL
