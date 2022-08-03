@@ -1,0 +1,205 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Example Stack to deploy Guard Security Group Policies
+
+Resources:
+  SecurityGroupNoIngressAny: 
+    Type: AWS::Config::ConfigRule
+    Properties: 
+      ConfigRuleName: SecurityGroupNoIngressAny
+      Scope: 
+        ComplianceResourceTypes: 
+          - "AWS::EC2::SecurityGroup"
+      Source: 
+        Owner: "CUSTOM_POLICY"
+        CustomPolicyDetails: 
+          EnableDebugLogDelivery: false
+          PolicyRuntime: guard-2.x.x
+          PolicyText:
+            !Sub |
+            rule check_resource_type_and_status {
+                resourceType == /AWS::EC2::SecurityGroup/
+            }
+
+            rule check_no_access_ingress_any when check_resource_type_and_status {
+                # 
+                # select all cidrIp entries that point to '0.0.0.0/0'
+                #
+                let any_ip_permissions = configuration.ipPermissions[
+                    #
+                    # if either ipv4 or ipv6 that allows access from any address
+                    #
+                    some ipv4Ranges[*].cidrIp == '0.0.0.0/0' or
+                    some ipv6Ranges[*].cidrIpv6 == '::/0']
+                
+                %any_ip_permissions empty
+            }
+        Owner: CUSTOM_POLICY
+        SourceDetails:
+          - 
+            EventSource: aws.config
+            MessageType: ConfigurationItemChangeNotification
+
+  SecurityGroupNoEgressAny: 
+    Type: AWS::Config::ConfigRule
+    Properties: 
+      ConfigRuleName: SecurityGroupNoEgressAny
+      Scope: 
+        ComplianceResourceTypes: 
+          - "AWS::EC2::SecurityGroup"
+      Source: 
+        Owner: "CUSTOM_POLICY"
+        CustomPolicyDetails: 
+          EnableDebugLogDelivery: false
+          PolicyRuntime: guard-2.x.x
+          PolicyText:
+            !Sub |
+            rule check_resource_type_and_status {
+                resourceType == /AWS::EC2::SecurityGroup/
+            }
+            rule check_no_access_egress_any when check_resource_type_and_status {
+                # 
+                # select all cidrIp entries that point to '0.0.0.0/0'
+                #
+                let any_ip_permissions = configuration.ipPermissionsEgress[
+                    #
+                    # if either ipv4 or ipv6 that allows access from any address
+                    #
+                    some ipv4Ranges[*].cidrIp == '0.0.0.0/0' or
+                    some ipv6Ranges[*].cidrIpv6 == '::/0']
+                
+                %any_ip_permissions empty
+            }
+        Owner: CUSTOM_POLICY
+        SourceDetails:
+          - 
+            EventSource: aws.config
+            MessageType: ConfigurationItemChangeNotification
+
+  SecurityGroupNoIngressAnyMgmtPort: 
+    Type: AWS::Config::ConfigRule
+    Properties: 
+      ConfigRuleName: SecurityGroupNoIngressAnyMgmtPort
+      Scope: 
+        ComplianceResourceTypes: 
+          - "AWS::EC2::SecurityGroup"
+      Source: 
+        Owner: "CUSTOM_POLICY"
+        CustomPolicyDetails: 
+          EnableDebugLogDelivery: false
+          PolicyRuntime: guard-2.x.x
+          PolicyText:
+            !Sub |
+            rule check_resource_type_and_status {
+                resourceType == /AWS::EC2::SecurityGroup/
+            }
+            rule check_no_access_ingress_any_mgmt_port when check_resource_type_and_status {
+
+                let management_ports = [22, 3389]
+
+                # 
+                # select all ipPermission instances that can be reached by ANY IP address
+                # IPv4 or IPv6 and not UDP
+                #
+                let any_ip_permissions = configuration.ipPermissions[
+                    #
+                    # if either ipv4 or ipv6 that allows access from any address
+                    #
+                    some ipv4Ranges[*].cidrIp == '0.0.0.0/0' or
+                    some ipv6Ranges[*].cidrIpv6 == '::/0'
+
+                    #
+                    # the ipProtocol is not UDP
+                    #
+                    ipProtocol != 'udp' ]
+                    
+                when %any_ip_permissions !empty
+                {
+                    %any_ip_permissions {
+                        ipProtocol != '-1'
+                        when fromPort exists 
+                            toPort exists 
+                        {
+                            let each_any_ip_perm = this
+                            %management_ports {
+                                this != %each_any_ip_perm.fromPort or
+                                this != %each_any_ip_perm.toPort
+                            }
+                        }
+                    }       
+                }   
+            }
+        Owner: CUSTOM_POLICY
+        SourceDetails:
+          - 
+            EventSource: aws.config
+            MessageType: ConfigurationItemChangeNotification
+
+  SecurityGroupNoIngressAnyMgmtPortRestrictedVpcs: 
+    Type: AWS::Config::ConfigRule
+    Properties: 
+      ConfigRuleName: SecurityGroupNoIngressAnyMgmtPortRestrictedVpcs
+      Scope: 
+        ComplianceResourceTypes: 
+          - "AWS::EC2::SecurityGroup"
+      Source: 
+        Owner: "CUSTOM_POLICY"
+        CustomPolicyDetails: 
+          EnableDebugLogDelivery: false
+          PolicyRuntime: guard-2.x.x
+          PolicyText:
+            !Sub |
+            rule check_resource_type_and_status {
+                resourceType == /AWS::EC2::SecurityGroup/
+            }
+            rule check_no_access_ingress_any_mgmt_port_restricted_vpcs when check_resource_type_and_status {
+
+                let management_ports = [22, 3389]
+                let restricted_vpcs = ['vpc-0cbee09e78864b987']
+
+                # 
+                # select only restricted VPCs
+                #
+                let any_restricted_vpc = configuration[
+                    vpcId IN %restricted_vpcs]
+                
+                when %any_restricted_vpc !empty
+                {
+                    # 
+                    # select all ipPermission instances that can be reached by ANY IP address
+                    # IPv4 or IPv6 and not UDP
+                    #
+                    let any_ip_permissions = configuration.ipPermissions[
+                        #
+                        # if either ipv4 or ipv6 that allows access from any address
+                        #
+                        some ipv4Ranges[*].cidrIp == '0.0.0.0/0' or
+                        some ipv6Ranges[*].cidrIpv6 == '::/0'
+
+                        #
+                        # the ipProtocol is not UDP
+                        #
+                        ipProtocol != 'udp' ]
+                        
+                    when %any_ip_permissions !empty
+                    {
+                        %any_ip_permissions {
+                            ipPermissions.ipProtocol != '-1'
+                            when ipPermissions.fromPort exists 
+                                ipPermissions.toPort exists 
+                            {
+                                let each_any_ip_perm = this
+                                %management_ports {
+                                    this != %each_any_ip_perm.ipPermissions.fromPort or
+                                    this != %each_any_ip_perm.ipPermissions.toPort
+                                }
+                            }
+                        }       
+                    }  
+                } 
+            }
+        Owner: CUSTOM_POLICY
+        SourceDetails:
+          - 
+            EventSource: aws.config
+            MessageType: ConfigurationItemChangeNotification
